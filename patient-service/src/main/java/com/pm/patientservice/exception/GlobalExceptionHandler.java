@@ -32,4 +32,13 @@ public class GlobalExceptionHandler {
         error.put("message", "Email already exists");
         return ResponseEntity.badRequest().body(error);
     }
+
+    @ExceptionHandler(PatirentNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handlePatientNotFoundException(PatirentNotFoundException ex) {
+        log.warn("Patient not found: {}", ex.getMessage());
+        Map<String, String> error = new HashMap<>();
+        error.put("message", "Patient not found");
+        return ResponseEntity.status(400).body(error);
+    }
 }
+
